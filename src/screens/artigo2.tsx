@@ -10,6 +10,7 @@ import {
 import type { RootStackParamList } from "../routes";
 import { Image } from "expo-image";
 import { Header } from "../components/header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Artigo1ScreenNavigationProp = NativeStackNavigationProp<
 	RootStackParamList,
@@ -20,50 +21,52 @@ export function Article2Screen({
 	navigation,
 }: { navigation: Artigo1ScreenNavigationProp }) {
 	return (
-		<ScrollView style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<Header navigation={navigation} title="Chuva na cidade de São Paulo" />
+			<ScrollView style={styles.container}>
 
-			<View style={styles.articleContent}>
-				<Text style={styles.articleDate}>Janeiro 2025</Text>
+				<View style={styles.articleContent}>
+					<Text style={styles.articleDate}>Janeiro 2025</Text>
 
-				<Text style={styles.articleText}>
-					Na quarta-feira, 29 de janeiro, São Paulo entrou em estado de atenção
-					para alagamentos devido às chuvas que atingem a capital desde o início
-					da manhã. O alerta foi decretado às 10h55 pela Defesa Civil e
-					permanece ativo.
-				</Text>
+					<Text style={styles.articleText}>
+						Na quarta-feira, 29 de janeiro, São Paulo entrou em estado de atenção
+						para alagamentos devido às chuvas que atingem a capital desde o início
+						da manhã. O alerta foi decretado às 10h55 pela Defesa Civil e
+						permanece ativo.
+					</Text>
 
-				<Image
-					source={require("../../assets/chuva_sp.jpg")}
-					style={styles.articleImage}
-				/>
+					<Image
+						source={require("../../assets/chuva_sp.jpg")}
+						style={styles.articleImage}
+					/>
 
-				<Text style={styles.articleText}>
-					Segundo o CGE, as chuvas, originadas no interior, seguem de forma
-					isolada, com maior intensidade nas zonas sudeste e parte da zona sul
-					da cidade. Até o momento, não foram registradas ocorrências graves,
-					mas há risco de transbordamentos, ventos fortes e quedas de árvores.
-				</Text>
+					<Text style={styles.articleText}>
+						Segundo o CGE, as chuvas, originadas no interior, seguem de forma
+						isolada, com maior intensidade nas zonas sudeste e parte da zona sul
+						da cidade. Até o momento, não foram registradas ocorrências graves,
+						mas há risco de transbordamentos, ventos fortes e quedas de árvores.
+					</Text>
 
-				<Text style={styles.articleText}>
-					A previsão é de que o tempo continue instável nas próximas horas, com
-					chuvas lentas e potencial para novos alagamentos.
-				</Text>
+					<Text style={styles.articleText}>
+						A previsão é de que o tempo continue instável nas próximas horas, com
+						chuvas lentas e potencial para novos alagamentos.
+					</Text>
 
-				<TouchableOpacity
-					style={styles.articleButton}
-					onPress={() =>
-						Linking.openURL(
-							"https://agenciabrasil.ebc.com.br/geral/noticia/2025-01/chuvas-deixam-cidade-de-sp-em-estado-de-atencao-para-alagamentos",
-						)
-					}
-				>
-					<Text style={styles.articleButtonText}>Leia o artigo completo</Text>
-				</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.articleButton}
+						onPress={() =>
+							Linking.openURL(
+								"https://agenciabrasil.ebc.com.br/geral/noticia/2025-01/chuvas-deixam-cidade-de-sp-em-estado-de-atencao-para-alagamentos",
+							)
+						}
+					>
+						<Text style={styles.articleButtonText}>Leia o artigo completo</Text>
+					</TouchableOpacity>
 
-				<Text style={styles.articleSource}>Fonte: Agência Brasil - 2025</Text>
-			</View>
-		</ScrollView>
+					<Text style={styles.articleSource}>Fonte: Agência Brasil - 2025</Text>
+				</View>
+			</ScrollView>
+		</SafeAreaView>
 	);
 }
 

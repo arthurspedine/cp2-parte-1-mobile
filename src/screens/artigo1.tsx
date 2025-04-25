@@ -11,6 +11,7 @@ import type { RootStackParamList } from "../routes";
 // @ts-ignore
 import { Image } from "expo-image";
 import { Header } from "../components/header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Artigo1ScreenNavigationProp = NativeStackNavigationProp<
 	RootStackParamList,
@@ -21,51 +22,53 @@ export function Article1Screen({
 	navigation,
 }: { navigation: Artigo1ScreenNavigationProp }) {
 	return (
-		<ScrollView style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<Header navigation={navigation} title="Enchente no Rio Grande do Sul" />
+			<ScrollView style={styles.container}>
 
-			<View style={styles.articleContent}>
-				<Text style={styles.articleDate}>Junho 2024</Text>
+				<View style={styles.articleContent}>
+					<Text style={styles.articleDate}>Junho 2024</Text>
 
-				<Text style={styles.articleText}>
-					A calamidade no Rio Grande do Sul, causada por intensas chuvas entre o
-					final de abril e maio de 2024, deixou mais de 616 mil pessoas fora de
-					suas casas. As enchentes provocaram 172 mortes e 42 desaparecidos. O
-					estado registrou um total de 2,39 milhões de pessoas afetadas
-					diretamente, o que representa quase 22% da população do estado. Além
-					disso, os níveis dos rios, como o Guaíba, continuam a subir,
-					impactando ainda mais a infraestrutura e a vida das pessoas.
-				</Text>
+					<Text style={styles.articleText}>
+						A calamidade no Rio Grande do Sul, causada por intensas chuvas entre o
+						final de abril e maio de 2024, deixou mais de 616 mil pessoas fora de
+						suas casas. As enchentes provocaram 172 mortes e 42 desaparecidos. O
+						estado registrou um total de 2,39 milhões de pessoas afetadas
+						diretamente, o que representa quase 22% da população do estado. Além
+						disso, os níveis dos rios, como o Guaíba, continuam a subir,
+						impactando ainda mais a infraestrutura e a vida das pessoas.
+					</Text>
 
-				<Image
-					source={require("../../assets/enchente_rs.jpg")}
-					style={styles.articleImage}
-				/>
+					<Image
+						source={require("../../assets/enchente_rs.jpg")}
+						style={styles.articleImage}
+					/>
 
-				<Text style={styles.articleSubtitle}>Situação Atual</Text>
+					<Text style={styles.articleSubtitle}>Situação Atual</Text>
 
-				<Text style={styles.articleText}>
-					Até agora, mais de 77 mil pessoas foram resgatadas, junto com 12,5 mil
-					animais. O nível dos rios como o Guaíba e a Lagoa dos Patos continua
-					preocupando, com algumas áreas ainda alagadas. A situação é crítica,
-					mas há uma tendência de queda dos níveis de alguns rios, como o Rio
-					dos Sinos e o Taquari.
-				</Text>
+					<Text style={styles.articleText}>
+						Até agora, mais de 77 mil pessoas foram resgatadas, junto com 12,5 mil
+						animais. O nível dos rios como o Guaíba e a Lagoa dos Patos continua
+						preocupando, com algumas áreas ainda alagadas. A situação é crítica,
+						mas há uma tendência de queda dos níveis de alguns rios, como o Rio
+						dos Sinos e o Taquari.
+					</Text>
 
-				<TouchableOpacity
-					style={styles.articleButton}
-					onPress={() =>
-						Linking.openURL(
-							"https://agenciabrasil.ebc.com.br/geral/noticia/2024-06/rio-grande-do-sul-tem-616-mil-pessoas-fora-de-casa-pela-calamidade",
-						)
-					}
-				>
-					<Text style={styles.articleButtonText}>Leia o artigo completo</Text>
-				</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.articleButton}
+						onPress={() =>
+							Linking.openURL(
+								"https://agenciabrasil.ebc.com.br/geral/noticia/2024-06/rio-grande-do-sul-tem-616-mil-pessoas-fora-de-casa-pela-calamidade",
+							)
+						}
+					>
+						<Text style={styles.articleButtonText}>Leia o artigo completo</Text>
+					</TouchableOpacity>
 
-				<Text style={styles.articleSource}>Fonte: Agência Brasil – 2024</Text>
-			</View>
-		</ScrollView>
+					<Text style={styles.articleSource}>Fonte: Agência Brasil – 2024</Text>
+				</View>
+			</ScrollView>
+		</SafeAreaView>
 	);
 }
 

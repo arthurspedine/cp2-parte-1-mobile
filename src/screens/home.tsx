@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Ionicons } from "react-native-vector-icons";
 import type { OpenMeteoResponse, ViaCepResponse } from "../types";
 import { Image } from "expo-image";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type MainScreenNavigationProp = NativeStackNavigationProp<
 	RootStackParamList,
@@ -65,7 +66,6 @@ export function HomeScreen({
 			);
 
 			const weather: OpenMeteoResponse = await weatherResponse.json();
-			console.log(weather);
 			setWeatherData(weather);
 
 			evaluateFloodRisk(weather);
@@ -85,7 +85,7 @@ export function HomeScreen({
 
 		const dailyPrecipitationSum =
 			weather.daily.precipitation_sum &&
-			weather.daily.precipitation_sum.length > 0
+				weather.daily.precipitation_sum.length > 0
 				? weather.daily.precipitation_sum[0]
 				: 0;
 
@@ -110,162 +110,164 @@ export function HomeScreen({
 	};
 
 	return (
-		<ScrollView style={styles.container}>
-			<View style={styles.header}>
-				<Text style={styles.title}>Alerta Enchentes</Text>
-				<Text style={styles.subtitle}>
-					Prevenção e monitoramento de alagamentos no Brasil
-				</Text>
-			</View>
-
-			<View style={styles.infoBox}>
-				<Text style={styles.infoTitle}>
-					O problema dos alagamentos no Brasil
-				</Text>
-				<Text style={styles.infoText}>
-					O Brasil é constantemente afetado por desastres de alagamentos e
-					enchentes, especialmente durante a temporada de chuvas. Esses eventos
-					não apenas causam danos materiais, mas também ameaçam a segurança e a
-					saúde das pessoas. Entre as principais causas, destacam-se a
-					urbanização desordenada, sistemas de drenagem ineficazes e as mudanças
-					climáticas, que intensificam o risco de calamidades.
-				</Text>
-				<Text style={styles.infoText}>
-					Anualmente, milhões de brasileiros são afetados por estas catástrofes,
-					resultando em perdas materiais, problemas de saúde pública e, em casos
-					mais graves, perda de vidas humanas.
-				</Text>
-			</View>
-
-			<View style={styles.articleButtons}>
-				<TouchableOpacity
-					style={styles.articleButton}
-					onPress={() => navigation.navigate("Artigo1")}
-				>
-					<Image
-						source={require("../../assets/enchente_rs.jpg")}
-						style={styles.articleImage}
-					/>
-					<Text style={styles.articleButtonText}>
-						Rio Grande do Sul tem 616 mil pessoas fora de casa pela calamidade
+		<SafeAreaView style={styles.container}>
+			<ScrollView style={styles.container}>
+				<View style={styles.header}>
+					<Text style={styles.title}>Alerta Enchentes</Text>
+					<Text style={styles.subtitle}>
+						Prevenção e monitoramento de alagamentos no Brasil
 					</Text>
-					<Text style={styles.articleButtonSubtext}>Junho 2024</Text>
-				</TouchableOpacity>
+				</View>
 
-				<TouchableOpacity
-					style={styles.articleButton}
-					onPress={() => navigation.navigate("Artigo2")}
-				>
-					<Image
-						source={require("../../assets/chuva_sp.jpg")}
-						style={styles.articleImage}
-					/>
-					<Text style={styles.articleButtonText}>
-						Chuvas deixam cidade de SP em estado de atenção para alagamentos
+				<View style={styles.infoBox}>
+					<Text style={styles.infoTitle}>
+						O problema dos alagamentos no Brasil
 					</Text>
-					<Text style={styles.articleButtonSubtext}>Janeiro 2025</Text>
-				</TouchableOpacity>
-			</View>
+					<Text style={styles.infoText}>
+						O Brasil é constantemente afetado por desastres de alagamentos e
+						enchentes, especialmente durante a temporada de chuvas. Esses eventos
+						não apenas causam danos materiais, mas também ameaçam a segurança e a
+						saúde das pessoas. Entre as principais causas, destacam-se a
+						urbanização desordenada, sistemas de drenagem ineficazes e as mudanças
+						climáticas, que intensificam o risco de calamidades.
+					</Text>
+					<Text style={styles.infoText}>
+						Anualmente, milhões de brasileiros são afetados por estas catástrofes,
+						resultando em perdas materiais, problemas de saúde pública e, em casos
+						mais graves, perda de vidas humanas.
+					</Text>
+				</View>
 
-			<View style={styles.searchSection}>
-				<Text style={styles.searchTitle}>
-					Consulte o risco de alagamento na sua região
-				</Text>
-
-				<View style={styles.inputContainer}>
-					<TextInput
-						style={styles.input}
-						placeholder="Digite seu CEP (somente números)"
-						keyboardType="numeric"
-						value={cep}
-						onChangeText={setCep}
-						maxLength={8}
-					/>
+				<View style={styles.articleButtons}>
 					<TouchableOpacity
-						style={styles.searchButton}
-						onPress={searchCEP}
-						disabled={loading}
+						style={styles.articleButton}
+						onPress={() => navigation.navigate("Artigo1")}
 					>
-						<Ionicons name="search" size={24} color="white" />
+						<Image
+							source={require("../../assets/enchente_rs.jpg")}
+							style={styles.articleImage}
+						/>
+						<Text style={styles.articleButtonText}>
+							Rio Grande do Sul tem 616 mil pessoas fora de casa pela calamidade
+						</Text>
+						<Text style={styles.articleButtonSubtext}>Junho 2024</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity
+						style={styles.articleButton}
+						onPress={() => navigation.navigate("Artigo2")}
+					>
+						<Image
+							source={require("../../assets/chuva_sp.jpg")}
+							style={styles.articleImage}
+						/>
+						<Text style={styles.articleButtonText}>
+							Chuvas deixam cidade de SP em estado de atenção para alagamentos
+						</Text>
+						<Text style={styles.articleButtonSubtext}>Janeiro 2025</Text>
 					</TouchableOpacity>
 				</View>
 
-				{loading && (
-					<ActivityIndicator
-						size="large"
-						color="#0066CC"
-						style={styles.loader}
-					/>
-				)}
+				<View style={styles.searchSection}>
+					<Text style={styles.searchTitle}>
+						Consulte o risco de alagamento na sua região
+					</Text>
 
-				{address && weatherData && (
-					<View style={styles.resultContainer}>
-						<Text style={styles.locationTitle}>
-							{address.logradouro}, {address.bairro}
-						</Text>
-						<Text style={styles.locationSubtitle}>
-							{address.localidade} - {address.uf}
-						</Text>
-
-						<View style={styles.weatherContainer}>
-							<View style={styles.weatherInfo}>
-								<Text style={styles.weatherTemp}>
-									{Math.round(weatherData.current.temperature_2m)}°C
-								</Text>
-								<Text style={styles.weatherDetails}>
-									Umidade: {weatherData.current.relative_humidity_2m}%
-								</Text>
-								<Text style={styles.weatherDetails}>
-									Precipitação: {weatherData.current.precipitation || 0}mm
-								</Text>
-								{weatherData.current.rain > 0 && (
-									<Text style={styles.weatherDetails}>
-										Chuva: {weatherData.current.rain}mm
-									</Text>
-								)}
-							</View>
-
-							<View style={styles.weatherIconContainer}>
-								<Ionicons
-									name={
-										weatherData.current.precipitation > 0 ||
-										weatherData.current.rain > 0
-											? "rainy"
-											: "sunny"
-									}
-									size={60}
-									color="#0066CC"
-								/>
-							</View>
-						</View>
-
-						<View
-							style={[
-								styles.riskContainer,
-								floodRisk?.includes("Alto")
-									? styles.highRisk
-									: floodRisk?.includes("moderado")
-										? styles.mediumRisk
-										: styles.lowRisk,
-							]}
+					<View style={styles.inputContainer}>
+						<TextInput
+							style={styles.input}
+							placeholder="Digite seu CEP (somente números)"
+							keyboardType="numeric"
+							value={cep}
+							onChangeText={setCep}
+							maxLength={8}
+						/>
+						<TouchableOpacity
+							style={styles.searchButton}
+							onPress={searchCEP}
+							disabled={loading}
 						>
-							<Text style={styles.riskText}>{floodRisk}</Text>
-						</View>
+							<Ionicons name="search" size={24} color="white" />
+						</TouchableOpacity>
 					</View>
-				)}
-			</View>
-			<View style={styles.footer}>
-				<Text style={styles.footerText}>
-					Mande sua mensagem agora para o nosso suporte
-				</Text>
-				<TouchableOpacity
-					style={styles.footerButton}
-					onPress={() => navigation.navigate("SuporteTab")}
-				>
-					<Text style={{ color: "#fff" }}>Clique aqui</Text>
-				</TouchableOpacity>
-			</View>
-		</ScrollView>
+
+					{loading && (
+						<ActivityIndicator
+							size="large"
+							color="#0066CC"
+							style={styles.loader}
+						/>
+					)}
+
+					{address && weatherData && (
+						<View style={styles.resultContainer}>
+							<Text style={styles.locationTitle}>
+								{address.logradouro}, {address.bairro}
+							</Text>
+							<Text style={styles.locationSubtitle}>
+								{address.localidade} - {address.uf}
+							</Text>
+
+							<View style={styles.weatherContainer}>
+								<View style={styles.weatherInfo}>
+									<Text style={styles.weatherTemp}>
+										{Math.round(weatherData.current.temperature_2m)}°C
+									</Text>
+									<Text style={styles.weatherDetails}>
+										Umidade: {weatherData.current.relative_humidity_2m}%
+									</Text>
+									<Text style={styles.weatherDetails}>
+										Precipitação: {weatherData.current.precipitation || 0}mm
+									</Text>
+									{weatherData.current.rain > 0 && (
+										<Text style={styles.weatherDetails}>
+											Chuva: {weatherData.current.rain}mm
+										</Text>
+									)}
+								</View>
+
+								<View style={styles.weatherIconContainer}>
+									<Ionicons
+										name={
+											weatherData.current.precipitation > 0 ||
+												weatherData.current.rain > 0
+												? "rainy"
+												: "sunny"
+										}
+										size={60}
+										color="#0066CC"
+									/>
+								</View>
+							</View>
+
+							<View
+								style={[
+									styles.riskContainer,
+									floodRisk?.includes("Alto")
+										? styles.highRisk
+										: floodRisk?.includes("moderado")
+											? styles.mediumRisk
+											: styles.lowRisk,
+								]}
+							>
+								<Text style={styles.riskText}>{floodRisk}</Text>
+							</View>
+						</View>
+					)}
+				</View>
+				<View style={styles.footer}>
+					<Text style={styles.footerText}>
+						Mande sua mensagem agora para o nosso suporte
+					</Text>
+					<TouchableOpacity
+						style={styles.footerButton}
+						onPress={() => navigation.navigate("SuporteTab")}
+					>
+						<Text style={{ color: "#fff" }}>Clique aqui</Text>
+					</TouchableOpacity>
+				</View>
+			</ScrollView>
+		</SafeAreaView>
 	);
 }
 
