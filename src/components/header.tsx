@@ -16,7 +16,7 @@ export function Header({ navigation, title }: HeaderButtonProps) {
 			<ReturnButton navigation={navigation} />
 			<Text style={styles.title}>{title}</Text>
 			<Image
-				source={require("../../assets/icon.png")}
+				source={require("../../assets/adaptive-icon.png")}
 				style={{ width: 24, height: 24 }}
 			/>
 		</View>

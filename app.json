@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "cp2-parte-1-mobile",
+    "name": "Alerta Enchentes",
     "slug": "cp2-parte-1-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,12 +17,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.fiap.alerta_enchentes"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "73f725cc-1756-4a1c-8f0e-28064dac7b1c"
+      }
     }
   }
 }
